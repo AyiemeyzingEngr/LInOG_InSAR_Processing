@@ -1,4 +1,3 @@
-# LInOG: append editable workflow and mosaic-progression slides to the v4.0 flowchart deck (python-pptx).
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -123,4 +122,24 @@ for k,(x,t1,t1c,t2,t3,img) in enumerate([(0.55,'YEAR 1 (reported June 2026)',RGB
     text(sl,x+0.3,6.65,4.8,0.58,[[(l,{'size':10})] for l in t3.split('\n')])
 a=sl.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW,Inches(5.95),Inches(3.75),Inches(0.6),Inches(0.45)); a.fill.solid(); a.fill.fore_color.rgb=NEWE; a.line.color.rgb=NEWE
 pic(sl,A+'colorbar.png',12.05,2.3,1.2,3.6)
+# ---- GeoLab tutorial route slide ----
+sl=prs.slides.add_slide(blank)
+header(sl,'LInOG tutorial route on EarthScope GeoLab (manual v4.0, Chapter 11)','Browser-based JupyterLab server: trainees run the LInOG notebook on a four-date demonstration stack, without access to the project server')
+GS=[('1','EarthScope account','Google log-in to the GeoLab hub','gear'),('2','Start a server','29 GB profile: 3.66 CPU cores, 29,776 MiB memory','layers'),
+    ('3','One-time install','ISCE2, MintPy, GDAL, SNAPHU into home (~7 min)','archive'),('4','Demonstration stack','Path 449 Frame 0290: 4 dates, 6 pairs (2008)','mountain'),
+    ('5','Run the notebook','Cells 0–18 call the LInOG scripts, Phases 0–6','chart'),('6','Check and deliver','18-item run check; 16 products','map')]
+bw,gap,y=1.92,0.24,1.1
+for i,(n,t,b,ic) in enumerate(GS):
+    x=0.45+i*(bw+gap); box(sl,x,y,bw,2.15,STDF,NAVY)
+    text(sl,x+0.08,y+0.05,1.0,0.25,[[('Step '+n,{'b':True,'size':10,'color':NAVY})]])
+    pic(sl,A+'icon_%s.png'%ic,x+bw/2-0.36,y+0.3,0.72,0.72)
+    text(sl,x+0.05,y+1.08,bw-0.1,0.3,[[(t,{'b':True,'size':10,'color':NAVY})]],align=PP_ALIGN.CENTER)
+    text(sl,x+0.08,y+1.4,bw-0.16,0.7,[[(b,{'size':9})]],align=PP_ALIGN.CENTER)
+    if i<5: arrow(sl,x+bw+0.02,y+1.07,x+bw+gap-0.02,y+1.07)
+text(sl,0.45,3.4,12.5,0.3,[[('REAL OUTPUTS PRODUCED ON GEOLAB (September 2026; four-date demonstration stack, for training only)',{'b':True,'size':12,'color':OUTE})]],align=PP_ALIGN.CENTER)
+ow=4.05
+for k,(f,c) in enumerate([('s35_1.jpg','Phase 4.5: interferogram report sheet (GeoLab, 20 Sept 2026)'),('s35_2.png','Phase 5: velocity in radar coordinates (GeoLab, 22 Sept 2026)'),('s35_3.jpg','Phase 6: delivered velocity map, cm/yr (GeoLab, 20 Sept 2026)')]):
+    x=0.45+k*(ow+0.2); box(sl,x,3.8,ow,3.45,OUTF,OUTE)
+    pic(sl,A+f,x+0.12,3.9,ow-0.24,2.85)
+    text(sl,x+0.1,6.8,ow-0.2,0.4,[[(c,{'size':9})]],align=PP_ALIGN.CENTER)
 prs.save(OUT); print('saved',OUT,len(prs.slides))
