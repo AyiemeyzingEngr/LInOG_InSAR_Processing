@@ -21,7 +21,8 @@ All notable changes to this repository, manual, and scripts are documented here.
 
 ### Notes
 - Valid-data area of the 12 frames, measured on the v1.2 rasters (temporal coherence ≥ 0.7, water and swath-edge masks, overlaps counted once): 27,893 km²
-- FBS+FBD stacks are multilooked 28 × 12 on the FBD range grid (~100 m × 180 m) and geocoded to a 1/1200° (~90 m) grid; 6 range looks would restore ~90 m resolution (open decision)
+- FBS+FBD stacks sit on the 4.68 m range grid of an FBS reference date (FBS band-limited to 14 MHz in place; FBD resampled onto it at coregistration), so 28 × 12 looks give ~90 m × 90 m pixels, matching the 1/1200° (~90 m) output grid; 12 range looks are kept over 6 (about twice the independent looks, lower phase noise, no loss in the ~90 m deliverables)
+- Workflow figure and slides corrected: Phase 1 no longer says FBS is resampled to the FBD range grid
 - Report navigation: headings follow a Heading 2–6 hierarchy, captions are numbered with SEQ fields and in-text figure/table references are cross-reference fields, so the contents, list of tables and list of figures can be refreshed in Word (F9)
 - Reference corrected: Werner, Wegmüller, Strozzi, Wiesmann & Santoro (2007), Proc. First Joint PI Symposium of ALOS Data Nodes, Kyoto
 - The narrative report itself is not versioned here because it contains participant names and project-drive data

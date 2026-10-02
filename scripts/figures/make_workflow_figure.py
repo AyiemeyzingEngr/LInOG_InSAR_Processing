@@ -1,10 +1,8 @@
-# LInOG figure script: FBS+FBD workflow block diagram with real outputs (Y2Q2 report, 2 Oct 2026).
-# Inputs: manual v4.0 figures in linog_data/04_methods_notes/FBS FBD/v4.0_figures/ (synced Drive). Icons are defined in make_workflow_icons.py.
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt, numpy as np
 from matplotlib.patches import FancyBboxPatch, Circle, Rectangle, Polygon
 from PIL import Image
-exec(open(__import__('os').path.join(__import__('os').path.dirname(__file__),'make_workflow_icons.py')).read())
+exec(open('icons.py').read())
 F='/home/user/LInOG_InSAR_Processing/linog_data/04_methods_notes/FBS FBD/v4.0_figures/'
 def load(f,crop=None):
     im=Image.open(F+f).convert('RGB')
@@ -18,13 +16,13 @@ def rbox(x,y,w,h,fc,ec,lw=1.5):
 P=[
  ('0','Set-up and pre-flight','Install ISCE2, MintPy, GDAL and SNAPHU;\ncheck software provenance; size the\nmachine; count the archive',ic_gear,False,'provenance check',
   'TERM','Summary of the pre-flight\nrecord: all 14 checks pass\nbefore any data is touched'),
- ('1','Unpack and unify FBS + FBD','Unzip ALOS-1 L1.1 granules; beam check;\nsort dates into FBS / FBD; resample FBS\nto the FBD range grid and band-limit it\nto the common 14 MHz','merge',True,'gates G1–G6',
+ ('1','Unpack and unify FBS + FBD','Unzip ALOS-1 L1.1 granules; beam check;\nsort dates into FBS / FBD; band-limit\nthe FBS dates to the common 14 MHz\nat their native 4.68 m range sampling','merge',True,'gates G1–G6',
   ('fig3_2.png',(0,0,1,1)),'Range spectra: FBS before\n(red) and after (dark) band-\nlimiting match FBD (green)'),
  ('2','DEM and network design','Shared DEM; select pairs with temporal\nbaseline ≤ 730 days and perpendicular\nbaseline ≤ 1,500 m',ic_mountain,False,'gate G17',
   ('fig4_2.png',(0,0,1,1)),'Baseline network of the\ninterferogram pairs,\n2007–2011'),
- ('3','Coregistration','Align every SLC to one reference date;\nmisregistration inversion pinned to\nthe reference date',ic_layers,False,'gates G7–G9, G16, G21',
+ ('3','Coregistration','Align every SLC to one FBS reference\ndate (4.68 m range grid; FBD dates are\nresampled onto it); misregistration\ninversion pinned to the reference date',ic_layers,False,'gates G7–G9, G16, G21',
   ('fig5_2.png',(0,0,1,1)),'Coregistration residuals\nper date, checked against\nthe tolerance band'),
- ('4','Interferogram generation','Form interferograms; multilook\n28 × 12; filter; unwrap the phase\nwith SNAPHU',ic_fringe,False,'gates G10, G11, G18, G20',
+ ('4','Interferogram generation','Form interferograms; multilook\n28 × 12 (~90 m × 90 m); filter;\nunwrap the phase with SNAPHU',ic_fringe,False,'gates G10, G11, G18, G20',
   ('fig6_2.jpg',(0,0.03,0.49,1)),'Filtered interferogram,\n8 Jan – 23 Feb 2008; each\ncolour cycle is one fringe'),
  ('4.5','Visual quality control','Phase and amplitude report pages for\nevery interferogram; poor pairs are\nflagged and excluded',ic_grid,False,'visual check',
   ('fig7_1.jpg',(0,0,1,1)),'Interferogram report page\nused to inspect every pair'),
